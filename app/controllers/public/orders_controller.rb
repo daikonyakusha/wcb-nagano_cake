@@ -10,7 +10,7 @@ class Public::OrdersController < ApplicationController
 		@order.save
 		@order_details = OrderDetail.new(order_details_params)
 		@order_details.save
-	 
+	  redirect_to 
   end
   
   private

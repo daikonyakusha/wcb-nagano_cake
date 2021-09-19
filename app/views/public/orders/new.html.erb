@@ -7,8 +7,9 @@
 </div>
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12 mt-3">
-	  <%= form_with model:@order%>
+	  <%= form_with model:[@order,@order_detail] local:true do |f| %>
    <h4><strong>支払方法</strong></h4>
+    
  </div>
  
 </div>
