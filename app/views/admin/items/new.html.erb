@@ -1,0 +1,43 @@
+<div class="container">
+ <div class="row">
+  <h2 class="col-sm6 col-md-4 col-lg-3 mr-2 mt-3 text-center bg-light">商品新規登録</h2>
+ </div>
+ <div class="mt-5 row">
+ 	<div class="col-sm-12 col-md-10 col-lg-8 m-auto">
+ 	 <%= form_with model:@item, url: admin_items_path, local:true do |f| %>
+ 	<div class="form-group row">
+ 	 <%= f.label :商品画像,class:"mt-2 col-sm-4 col-md-3 col-lg-3 col-form-label text-right" %>
+ 	 <%= f.attachment_field :image,class:"mt-2 col-sm-8 col-md-7 col-lg-5" %>
+ 	</div>
+ 	<div class="form-group row">
+ 	 <%= f.label :商品名,class:"mt-2 col-sm-4 col-md-3 col-lg-3 col-form-label text-right" %>
+ 	 <%= f.text_field :name,class:"mt-2 col-sm-8 col-md-8 col-lg-5",placeholder:'商品名' %>
+ 	</div>
+ 	<div class="form-group row">
+ 	 <%= f.label :商品紹介,class:"mt-2 col-sm-4 col-md-3 col-lg-3 col-form-label text-right" %>
+ 	 <%= f.text_area :introduction,class:"mt-2 col-sm-8 col-md-7 col-lg-5",placeholder:'ここに説明文を記載します。' %>
+ 	</div>
+ 	<div class="form-group row">
+ 	 <%= f.label :ジャンル,class:"mt-2 col-sm-4 col-md-3 col-lg-3 col-form-label text-right" %>
+ 	 <%= f.select :genre_id, options_from_collection_for_select(Genre.all,:id,:name),class:"col-sm-8 col-md-3 col-lg-5" %>
+ 	</div>
+ 	<div class="form-group row">
+ 	 <%= f.label :税抜価格,class:"mt-2 col-sm-4 col-md-3 col-lg-3 col-form-label text-right" %>
+ 	 <%= f.text_field :price,class:"mt-1 col-sm-8 col-md-7 col-lg-5",placeholder:'1000'%><p class="ml-1 mt-1">円</p>
+ 	</div>
+ 	 <div class="form-group row">
+ 	 	<%= f.label :販売ステータス,class:"mt-2 col-sm-4 col-md-3 col-lg-3 col-form-label text-right" %>
+ 	 	<div class="mt-2 col-sm-8 col-md-7 col-lg-5">
+	 	  <%= f.radio_button :is_active, true %>
+	     <%= f.label :is_active, "販売中" %>
+	    <%= f.radio_button :is_active, false %>
+	     <%= f.label :is_active, "販売停止中" %>
+	  </div>
+	  </div>
+ 	 	<div class="mt-1 col-sm-5 col-md-4 col-lg-3 m-auto">
+	 	  <%= f.submit "新規登録", class:"btn btn-success w-100" %>
+	  </div>
+  <% end %> 
+  </div>
+ </div>
+</div>

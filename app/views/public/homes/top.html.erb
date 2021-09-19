@@ -1,0 +1,44 @@
+<div class="container">
+ <div class="row mt-4">
+  <div class="col-sm-6 col-md-4 col-lg-2 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+   <table class="table table-hover">
+     <tr>
+      <th>ジャンル検索</th>
+     </tr>
+     <tr>
+      <td>
+       <% @genres.each do |genre| %>
+       <%= link_to genre.name, items_path %><br>
+       <% end %>
+      </td>
+     </tr>
+   </table>
+  </div>
+  <div class="col-sm-6 col-md-7 col-lg-8">
+   <div class="top_main">
+    <h2 class="m-auto d-flex align-items-center">
+      ようこそ、ながのCAKEへ！<br>
+      このサイトは、ケーキ販売のECサイトになります。<br>
+      会員でない方も商品の閲覧はできますが、<br>
+      購入には会員登録が必要になります。
+    </h2>
+   </div>	
+  </div>
+ </div>	
+ <div class="row mt-5 ml-5">
+  <div class="col-sm-12 col-md-10 col-lg-12 m-auto">
+   <h2>新着商品</h2>
+    <div class="d-flex flex-row">
+      <% @items.each do |item| %>
+       <%= attachment_image_tag item,:image,:fill,250,200, format: 'jpeg' %>
+       <%= item.name %>
+       <%= number_to_currency(item.price,:precision => 0, :format => "%u%n", :unit => "￥") %>
+      <% end %>
+    </div>
+ </div>
+<div class="mt-2 pull-right ">
+<%= link_to"すべての商品を見る＞",items_path %>
+</div>
+</div>
+</div>
+</div>

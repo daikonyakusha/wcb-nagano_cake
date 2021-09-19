@@ -1,0 +1,82 @@
+<div class="container">
+ <div class="row">
+ <h2 class="col-sm6 col-md-4 col-lg-3 mr-2 mt-3 text-center bg-light">注文履歴詳細</h2>
+ </div>
+ <div class="row mt-5">
+ <table class="col-sm-12 col-md-10 col-lg-8 m-auto table table-borderless">
+    <tr>
+      <th>購入者</th>
+      <td><%= link_to @order.customer.name,admin_customer_path(@order.customer_id) %></td>
+    </tr>
+    <tr>
+      <th>注文日</th>
+      <td><%= @order.created_at %></td>
+    </tr>
+    <tr>
+      <th>配送先</th>
+      <td>
+        <%= @order.postal_code %><br>
+        <%= @order.address %><br>
+        <%= @order.name %>
+      </td>
+    </tr>
+    <tr>
+      <th>支払方法</th> 
+      <td><%= @order.payment_method %></td>
+    </tr>
+     <tr>
+      <th>注文ステータス</th> 
+      <td>
+        <% form_with model:@order, local:true do |f| %>
+        <%= f.select :order_id, options_from_collection_for_select(Order.all, :id, :status) %>
+        <%= f.submit "更新" ,class:"btn btn-success" %>
+        <% end %>
+        </td>
+    </tr>
+  </table>
+ </div>
+ <div class="row mt-5">
+ <table class="col-sm-12 col-md-10 col-lg-8 m-auto table table-hover">
+   <thead>
+    <tr>
+      <th>商品名</th>
+      <th>単価（税込）</th>
+      <th>数量</th>
+      <th>小計</th>
+      <th>製作ステータス</th>
+    </tr>
+   </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+    <tr>
+      <th><%= order.item.name %></th>
+      <th><%= order.order_detail.price %></th>
+      <th><%= order.order_detail.amount %></th>
+      <th><%= number_to_currency(order.order_detail.price*order.order_detail.amount,:precision => 0,:format => "%n") %></th>
+      <th>
+        <% form_with model:@order_detail, local:true do |f| %>
+        <%= f.select :order_detail_id options_from_collection_for_select(Order_detail.all, :id, :making_status) %>
+        <%= f.submit "更新" ,class:"btn btn-success" %>
+        <% end %>
+	    </th> 
+    </tr>
+  <% end %>
+  <%= paginate @orders %>
+  </tbody>
+ </table>
+ <table class="col-sm-12 col-md-10 col-lg-8 m-auto table table-borderless">
+    <tr>
+      <th>商品合計</th>
+      <td><%= number_to_currency(@orders.order_detail.price.amount*@orders.order_detail.amount.amount,:precision => 0, :format => "%n%u", :unit => "円") %></td>
+    </tr>
+    <tr>
+      <th>送料合計</th>
+      <td><%= number_to_currency(@orders.shipping_cost.amount,:precision => 0, :format => "%n%u", :unit => "円") %></td>
+    </tr>
+    <tr>
+      <th>請求金額合計</th>
+      <td><%= number_to_currency(@orders.order_detail.price.amount*@orders.order_detail.amount.amount+@orders.shipping_cost.amount,:precision => 0, :format => "%n%u", :unit => "円") %></td>
+    </tr>
+ </table>
+ </div>
+</div>

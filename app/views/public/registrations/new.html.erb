@@ -1,0 +1,87 @@
+<div class="container">
+ <div class="row">
+ 	<div class="col-sm6 col-md-4 col-lg-3 mr-2 mt-3 text-center bg-light">
+ 		<h2>新規登録</h2>
+  </div>
+ </div>
+ <div class="row">
+  <div class="col-sm10 col-md-10 col-lg-10 mt-3 m-auto">
+  <div class="form-horizontal">
+   <%= form_with model:@customer,url: customer_registration_path,local:true do |f| %>
+   <table class="table table-borderless">
+    <tr>
+      <th>名前</th>
+      <td class="form-group form-inline">
+        <P>(姓)</P>
+        <%= f.text_field :last_name,class:"ml-2",placeholder:'令和' %>
+        <P>(名)</P>
+        <%= f.text_field :first_name,class:"ml-2",placeholder:'道子' %>
+      </td>
+    </tr>
+    <tr>
+      <th>フリガナ</th>
+      <td class="form-group form-inline">
+        <P>(セイ)</P>
+        <%= f.text_field :last_name_kana,class:"ml-2",placeholder:'レイワ' %>
+        <P>(メイ)</P>
+        <%= f.text_field :first_name_kana,class:"ml-2",placeholder:'ミチオ' %>
+      </td>
+    </tr>
+    <tr>
+      <th>メールアドレス</th>
+      <td class="form-group form-inline">
+        <%= f.text_field :email,class:"ml-2",placeholder:'samle@example.com',style:"width:200px; height:35px;"  %>
+      </td>
+    </tr>
+    <tr>
+      <th>郵便番号（ハイフンなし）</th>
+      <td class="form-group form-inline">
+        <%= f.text_field :postal_code,class:"ml-2",placeholder:'0000000',style:"width:200px; height:35px;"  %>
+      </td>
+    </tr>
+    <tr>
+      <th>住所</th>
+      <td class="form-group form-inline">
+        <%= f.text_area :address,class:"ml-2",placeholder:'東京都渋谷区代々木神園町0-0',style:"width:600px; height:35px;" %>
+      </td>
+    </tr>
+    <tr>
+      <th>電話番号（ハイフンなし）</th>
+      <td class="form-group form-inline">
+        <%= f.text_field :telephone_number,class:"ml-2",placeholder:'00000000000',style:"width:200px; height:35px;" %>
+      </td>
+    </tr>
+    <tr>
+      <th>パスワード（６文字以上）</th>
+      <td class="form-group form-inline">
+        <%= f.text_field :password,class:"ml-2",style:"width:200px; height:35px;"  %>
+      </td>
+    </tr>
+    <tr>
+      <th>パスワード（確認用）</th>
+      <td class="form-group form-inline">
+        <%= f.text_field :password_confirmation,class:"ml-2",style:"width:200px; height:35px;"  %>
+      </td>
+    </tr>
+    <tr>
+      <th></th>
+      <td class="form-group form-inline">
+        <%= f.submit "新規登録" ,class:"btn btn-success" %>
+      </td>
+    </tr>
+   </table>
+   <% end %>
+  </div>
+  </div>
+ </div>
+ <div class="row">
+ 	<div class="col-sm6 col-md-4 col-lg-3 mr-2 mt-3 text-center bg-light">
+ 		<h2>既に登録済みの方</h2>
+  </div>
+  <div class="ml-4 col-sm6 col-md-4 col-lg-3 mr-2 mt-3">
+ 		<h6><%= link_to"こちら",customer_session_path %>からログインしてください。</h6>
+  </div>
+ </div>
+</div> 
+ 
+

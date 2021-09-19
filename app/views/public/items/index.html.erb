@@ -1,0 +1,30 @@
+<div class="container">
+ <div class="row mt-4">
+  <div class="col-sm-6 col-md-4 col-lg-2 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+   <table class="table table-hover">
+     <tr>
+      <th>ジャンル検索</th>
+     </tr>
+     <tr>
+      <td>
+       <% @genres.each do |genre| %>
+       <%= link_to genre.name, items_path %><br>
+       <% end %>
+      </td>
+     </tr>
+   </table>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-12 m-auto">
+   <h2>商品一覧</h2><p>全<%= @total_item.count %>件</p>
+    <div class="d-flex">
+     <% @items.each do |item| %>
+     <div class="">
+      <%= attachment_image_tag item,:image,:fill,200,200, format: 'jpeg' %>
+      <%= link_to item.name,item_path(item) %>
+      <%= number_to_currency(item.price,:precision => 0, :format => "%u%n", :unit => "￥") %>
+     </div>
+    <% end %>
+    <%= paginate @items %>
+    </div>
+ </div>
+</div>
