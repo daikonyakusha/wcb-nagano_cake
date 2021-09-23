@@ -8,10 +8,21 @@ protected
   end
  	
   def after_sign_in_path_for(resorce)
-   root_path
+    case resource
+    when Admin
+      admin_path          #pathは設定したい遷移先へのpathを指定してください
+    when Customer
+      root_path              #ここもpathはご自由に変更してください
+    end
   end
  	
   def after_sign_out_path_for(resorce)
-   root_path
+   case resource
+    when Admin
+       new_admin_session_path          #pathは設定したい遷移先へのpathを指定してください
+    when Customer
+      root_path              #ここもpathはご自由に変更してください
+   end
   end
+  
 end

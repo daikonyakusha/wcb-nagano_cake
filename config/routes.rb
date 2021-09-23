@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       devise_for :customers, path_names: { edit: 'fare'}
       resources :items,only:[:index,:show]
       resource :customers,only:[:show,:edit,:update]
+      get 'orders/thanks' => 'orders#thanks'
       resources :cart_items, only:[:index,:update,:create,:destroy]
       resources :orders, only:[:index,:show,:new,:create] 
       resources :addresses, except:[:new]
@@ -30,6 +31,5 @@ Rails.application.routes.draw do
       patch 'customers/leave' => 'customers#leave'
       delete 'cart_items/destroy_all' => 'cart_items#destroy_all'
       post 'orders/comfirm' => 'orders#comfirm'
-      get 'orders/thanks' => 'orders#thanks'
     end
 end

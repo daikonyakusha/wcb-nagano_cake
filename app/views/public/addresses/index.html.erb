@@ -28,8 +28,7 @@
   </div>
  </div>
  <div class="row">
- 	<div class="col-sm-12 col-md-10 col-lg-8 mr-2 mt-3">
- 		<% @addresses.each do |address| %>
+ 	<div class="col-sm-12 col-md-10 col-lg-8 mr-2 mt-5">
    <table class="table table-hover">
    	<tr>
    		<th>郵便番号</th>
@@ -37,15 +36,17 @@
    		<th>宛名</th>
    		<th></th>
    	</tr>
+   	<% @addresses.each do |address| %>
    	<tr>
    		<td><%= address.postal_code %></td>
    		<td><%= address.address %></td>
    		<td><%= address.name %></td>
    		<td>
-   			<%= link_to "編集する",edit_address_path,class:"btn btn-success"%>
-   			<%= link_to "削除する",address_path,method: :delete,class:"btn btn-danger"%>
+   			<%= link_to "編集する",edit_address_path(address),class:"btn btn-success"%>
+   			<%= link_to "削除する",address_path(address),method: :delete,class:"btn btn-danger ml-2"%>
    		</td>
    	</tr>
+   	 <% end %>
    </table>
   </div>
  </div>

@@ -1,0 +1,80 @@
+<div class="container">
+ <div class="row">
+ 	<div class="col-sm6 col-md-4 col-lg-3 mr-2 mt-3 text-center bg-light">
+   <h2>注文情報確認</h2>
+  </div>
+ </div>
+ <div class="row mt-5">
+ 	<div class="col-sm-12 col-md-8 col-lg-8">
+ 		<table class="table table-hover">
+ 			<thead>
+ 			<tr>
+ 				<th>商品名</th>
+ 				<th>単価（税込）</th>
+ 				<th>数量</th>
+ 				<th>小計</th>
+ 				<th></th>
+ 			</tr>
+ 			</thead>
+ 			<tbody>
+ 			 <% @cart_items.each do |cart_item| %>
+ 			<tr>
+ 				<td>
+ 					<%= attachment_image_tag cart_item.item,:image,:fill,60,60, format: 'jpeg'  %>
+ 					<%= cart_item.item.name %>
+ 				</td>
+ 				<td><%= number_to_currency(cart_item.item.with_tax_price,:precision => 0, :format => "%n" ) %></td>
+ 				<td><%= cart_item.amount %></td>
+ 				<td><%= number_to_currency(cart_item.subtotal,:precision => 0, :format => "%n" ) %></td>
+ 				<% @total_amount += cart_item.subtotal %>
+ 			</tr>
+ 			<% end %>
+ 			</tbody>
+ 		</table>
+ 	</div>
+ 	<div class="row mt-5">
+ 	 <div class="col-sm-12 col-md-3 col-lg-3">
+ 		<table class="table table-hover">
+ 			<tr>
+ 				<th>送料</th>
+ 				<td><%= number_to_currency(@order.shipping_cost,:precision => 0, :format => "%n" ) %></td>
+ 			</tr>
+ 			<tr>
+ 				<th>商品合計</th>
+ 				<td><%= number_to_currency(@total_amount,:precision => 0, :format => "%n" ) %></td>
+ 			</tr>
+ 			<tr>
+ 				<th>請求額</th>
+ 				<td><%= number_to_currency(@total_amount_all,:precision => 0, :format => "%n" ) %></td>
+ 			</tr>
+ 		</table>
+ 	 </div>
+  </div>
+  <div class="row">
+ 	 <div class="col-sm-6 col-md-4 col-lg-6 mr-2 mt-3 text-center">
+   <h3>支払方法</h3>
+   <%= @order.payment_method_i18n %>
+   </div>
+  </div>
+  <div class="row">
+ 	 <div class="col-sm-6 col-md-4 col-lg-6 mr-2 mt-3 text-center">
+   <h3>お届け先</h3>
+   <P>〒<%= @order.postal_code %><%= @order.address %><%= @order.name %></P>
+   </div>
+  </div>
+  <div class="row mt-3">
+ 	 <div class="col-sm-12 col-md-12 col-lg-12 m-auto text-center">
+ 	  <%= form_with model:@order,url: orders_path, local:true do |f| %>
+ 	   <%= f.hidden_field:address_option,value: @address_option %>
+ 	   <%= f.hidden_field :shipping_cost,value: @order.shipping_cost %>
+ 	   <%= f.hidden_field :payment_method,value: @order.payment_method %>
+ 	   <%= f.hidden_field :postal_code,value: @order.postal_code %>
+ 	   <%= f.hidden_field :address,value: @order.address %>
+ 	   <%= f.hidden_field :name,value: @order.name %>
+ 	   <%= f.hidden_field :total_payment,value: @total_amount %>
+ 	   <%= f.hidden_field :total_payment_all,value: @total_amount_all %>
+ 	   <%= f.submit "注文確定",class:"btn btn-success" %>
+    <% end %>
+   </div>
+  </div>
+</div>

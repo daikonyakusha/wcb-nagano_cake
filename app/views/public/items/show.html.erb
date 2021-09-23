@@ -15,20 +15,17 @@
    </table>
   </div>
   <div class="col-sm-8 col-md-8 col-lg-5 m-auto">
-    <%= attachment_image_tag @item,:image,:fill,100,100 ,size: "200×200", format: 'jpeg' %>
+    <%= attachment_image_tag @item,:image,:fill,400,400 , format: 'jpeg' %>
   </div>
   <div class="col-sm-8 col-md-8 col-lg-5 m-auto">
-    <div class>
-      <strong><%= @item.name %></strong>
-      <%= @item.introduction %>
-      <%= number_to_currency(@item.price*1.1,:precision => 0, :format => "%u%n", :unit => "￥") %><p>(税込)</p>
-    </div>
-    <div class>
-      <%= @item.name %>
+    <div class="d-flex flex-column">
+      <h2><strong><%= @item.name %></strong></h2>
+      <h4 class="mt-3"><%= @item.introduction %></h4>
+      <h5 class="mt-3"><%= number_to_currency(@item.price*1.1,:precision => 0, :format => "%u%n", :unit => "￥") %>(税込)</h5>
       <%= form_with model:@cart_item ,url: cart_items_path ,local:true do |f| %>
        <%= f.hidden_field :item_id, value: @item.id %>
-       <%= f.select :amount, *[1..10] %>
-       <%= f.submit "カートに入れる" %>
+       <%= f.select :amount, *[1..10],class:"mt-4"%>
+       <%= f.submit "カートに入れる",class:"btn btn-success mt-3" %>
       <% end %> 
     </div>
   </div>
