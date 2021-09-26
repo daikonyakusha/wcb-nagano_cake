@@ -25,11 +25,16 @@
 	 				    <%= order.address %><br>
 	 				    <%= order.name %>
 	 				</td>
-	 				<td><%= order.item.name %></td>
-	 				<td><%= order.order_detail.amount*(order.order_detail.price*1.1) %></td>
-	 				<td><%= order.state_i18n %></td>
+	 				<td>
+	 					<% order.order_details.each do |order_detail| %>
+	 					<%= order_detail.item.name %><br>
+	 					<% end %>
+	 			　　</td>
+	 				<td><%= number_to_currency(order.total_payment,:precision => 0, :format => "%n%u", :unit => "円") %></td>
+	 				<td><%= order.status_i18n %></td>
 	 				<td><%= link_to "詳細", order_path(order),class:"btn btn-primary" %></td>
 	 			</tr>
+	 			<% end %>
 	 		</tbody>
 	 </table>
 	</div>

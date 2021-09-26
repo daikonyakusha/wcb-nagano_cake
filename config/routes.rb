@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search/search'
   devise_for :admin, controllers: {
     sessions:      'admin/sessions',
     passwords:     'admin/passwords',
@@ -10,9 +11,8 @@ Rails.application.routes.draw do
       resources :items
       resources :genres, except:[:new,:show]
       resources :customers, except:[:new,:create]
-      resources :orders, only:[:show,:update] do
+      resources :orders, only:[:show,:update] 
       resources :order_details, only:[:update]
-    end
       get '' => 'homes#top'
     end
     

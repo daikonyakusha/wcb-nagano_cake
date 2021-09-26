@@ -15,14 +15,24 @@
   <tbody>
     <% @orders.each do |order| %>
     <tr>
-      <th><%= link_to order.created_at,admin_order_path(order) %></th>
-      <th><%= order.name %></th>
-      <th><%= order.order_details.amount %></th>
-      <th><%= order.order_details.making_status %></th> 
+      <th><%= link_to order.created_at.strftime('%Y/%m/%d %H:%M:%S') ,admin_order_path(order) %></th>
+      <th><%= order.customer.last_name %><%= order.customer.first_name %></th>
+      <th>
+        <% order.order_details.each do |order_detail| %>
+          <% @total_amount += order_detail.amount %>
+        <% end %>
+        <%= @total_amount %>
+        <% @total_amount = 0 %>
+      </th>
+      <th><%= order.status_i18n %></th> 
     </tr>
   <% end %>
-  <%= paginate @orders %>
   </tbody>
  </table>
+ </div>
+ <div class="row m-auto">
+   <div class="col-sm-12 col-md-12 col-lg-12">
+    <%= paginate @orders %>
+   </div>
  </div>
 </div>

@@ -1,5 +1,6 @@
 class Admin::HomesController < ApplicationController
-	def top
+  def top
 	 @orders=Order.page(params[:page]).reverse_order
+	 @total_amount = 0
   end
 end

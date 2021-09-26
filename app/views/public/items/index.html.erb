@@ -1,14 +1,14 @@
 <div class="container">
  <div class="row mt-4">
   <div class="col-sm-6 col-md-4 col-lg-2 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
-   <table class="table table-hover">
+   <table class="table table-bordered genre-table">
      <tr>
       <th>ジャンル検索</th>
      </tr>
      <tr>
       <td>
        <% @genres.each do |genre| %>
-       <%= link_to genre.name, items_path %><br>
+       <%= link_to genre.name, items_path('search[value]': genre.id, 'search[how]': "match") %><br>
        <% end %>
       </td>
      </tr>
@@ -21,12 +21,17 @@
     <div class="d-flex flex-wrap">
      <% @items.each do |item| %>
      <div class="d-flex flex-column mr-4">
-      <%= attachment_image_tag item,:image,:fill,200,200, format: 'jpeg' %>
+      <%= link_to attachment_image_tag(item,:image,:fill,200,200, format: 'jpeg'),item_path(item) %>
       <%= link_to item.name,item_path(item) %>
       <%= number_to_currency(item.price,:precision => 0, :format => "%u%n", :unit => "￥") %>
      </div>
     <% end %>
-    <%= paginate @items %>
     </div>
+  </div>  
+ </div>
+ <div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <%= paginate @items %>
+  </div>
  </div>
 </div>

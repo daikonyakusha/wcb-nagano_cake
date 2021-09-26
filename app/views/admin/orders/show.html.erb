@@ -6,29 +6,30 @@
  <table class="col-sm-12 col-md-10 col-lg-8 m-auto table table-borderless">
     <tr>
       <th>購入者</th>
-      <td><%= link_to @order.customer.name,admin_customer_path(@order.customer_id) %></td>
+      <td><%= link_to @customer_name,admin_customer_path(@find_order.customer_id) %></td>
     </tr>
     <tr>
       <th>注文日</th>
-      <td><%= @order.created_at %></td>
+      <td><%= @find_order.created_at.strftime('%Y/%m/%d') %></td>
     </tr>
     <tr>
       <th>配送先</th>
       <td>
-        <%= @order.postal_code %><br>
-        <%= @order.address %><br>
-        <%= @order.name %>
+        〒
+        <%= @find_order.postal_code %>
+        <%= @find_order.address %><br>
+        <%= @find_order.name %>
       </td>
     </tr>
     <tr>
       <th>支払方法</th> 
-      <td><%= @order.payment_method %></td>
+      <td><%= @find_order.payment_method_i18n %></td>
     </tr>
      <tr>
       <th>注文ステータス</th> 
       <td>
-        <% form_with model:@order, local:true do |f| %>
-        <%= f.select :order_id, options_from_collection_for_select(Order.all, :id, :status) %>
+        <%= form_with model:@find_order, url: admin_order_path(@find_order), local:true do |f| %>
+        <%= f.select :status, Order.statuses_i18n.invert %>
         <%= f.submit "更新" ,class:"btn btn-success" %>
         <% end %>
         </td>
@@ -47,35 +48,35 @@
     </tr>
    </thead>
   <tbody>
-    <% @orders.each do |order| %>
+    <% @find_order.order_details.each do |order_detail| %>
     <tr>
-      <th><%= order.item.name %></th>
-      <th><%= order.order_detail.price %></th>
-      <th><%= order.order_detail.amount %></th>
-      <th><%= number_to_currency(order.order_detail.price*order.order_detail.amount,:precision => 0,:format => "%n") %></th>
+      <th><%= order_detail.item.name %></th>
+      <th><%= order_detail.price %></th>
+      <th><%= order_detail.amount %></th>
+      <th><%= number_to_currency(order_detail.price*order_detail.amount,:precision => 0,:format => "%n") %></th>
       <th>
-        <% form_with model:@order_detail, local:true do |f| %>
-        <%= f.select :order_detail_id options_from_collection_for_select(Order_detail.all, :id, :making_status) %>
+        <%= form_with model:order_detail, url: admin_order_detail_path(order_detail), local:true do |f| %>
+        <%= f.select :making_status, OrderDetail.making_statuses_i18n.invert %>
+        <%= f.hidden_field :order_id, value: order_detail.order_id %>
         <%= f.submit "更新" ,class:"btn btn-success" %>
         <% end %>
 	    </th> 
     </tr>
   <% end %>
-  <%= paginate @orders %>
   </tbody>
  </table>
- <table class="col-sm-12 col-md-10 col-lg-8 m-auto table table-borderless">
+ <table class="col-sm-12 col-md-10 col-lg-4 m-auto table table-borderless">
     <tr>
-      <th>商品合計</th>
-      <td><%= number_to_currency(@orders.order_detail.price.amount*@orders.order_detail.amount.amount,:precision => 0, :format => "%n%u", :unit => "円") %></td>
+      <th><strong>商品合計</strong></th>
+      <td><%= number_to_currency(@find_order.total_payment,:precision => 0, :format => "%n%u", :unit => "円") %></td>
     </tr>
     <tr>
-      <th>送料合計</th>
-      <td><%= number_to_currency(@orders.shipping_cost.amount,:precision => 0, :format => "%n%u", :unit => "円") %></td>
+      <th><strong>送料合計</strong></th>
+      <td><%= number_to_currency(@find_order.shipping_cost,:precision => 0, :format => "%n%u", :unit => "円") %></td>
     </tr>
     <tr>
-      <th>請求金額合計</th>
-      <td><%= number_to_currency(@orders.order_detail.price.amount*@orders.order_detail.amount.amount+@orders.shipping_cost.amount,:precision => 0, :format => "%n%u", :unit => "円") %></td>
+      <th><strong>請求金額合計</strong></th>
+      <td><%= number_to_currency(@find_order.total_payment+@find_order.shipping_cost,:precision => 0, :format => "%n%u", :unit => "円") %></td>
     </tr>
  </table>
  </div>

@@ -17,10 +17,10 @@ protected
   end
  	
   def after_sign_out_path_for(resorce)
-   case resource
-    when Admin
+   case resorce
+    when :admin
        new_admin_session_path          #pathは設定したい遷移先へのpathを指定してください
-    when Customer
+    when :customer
       root_path              #ここもpathはご自由に変更してください
    end
   end

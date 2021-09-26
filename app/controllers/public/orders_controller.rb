@@ -60,19 +60,20 @@ class Public::OrdersController < ApplicationController
      order_detail.item_id = cart_item.item_id
      order_detail.price = cart_item.item.price
      order_detail.amount = cart_item.amount
-     order_detail.making_status = 1
+     order_detail.making_status = 0
      order_detail.save
      current_customer.cart_items.destroy_all
-  	  redirect_to orders_thanks_path
   	 end
+  	 redirect_to orders_thanks_path
   end 
 
   def index
-   @orders = current_customer.order.all
+   @orders = current_customer.orders
   end 
   
   def show
    @order = Order.find(params[:id])
+   @total_amount = @order.total_payment + @order.shipping_cost
   end 
   
   def thanks

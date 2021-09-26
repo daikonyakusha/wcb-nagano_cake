@@ -1,13 +1,13 @@
 class Public::CustomersController < ApplicationController
 
  def edit
- 	@customer=Customer.find(params[:id])
+ 	@customer= current_customer
  end
  
  def update
- 	@customer=Customer.find(params[:id])
- 	@customer=Customer.update(params[:id])
- 	redirect_to items_path
+ 	@customer = current_customer
+ 	@customer = Customer.update(customer_params)
+ 	redirect_to customers_path
  end
  
  def quit
@@ -18,9 +18,11 @@ class Public::CustomersController < ApplicationController
  end
  
  def leave
-  customer = current.customer
-  customer.is_deleted = true
-  redirect_to top_path
+  customer = current_customer
+  #customer.is_deleted = true
+  customer.update(is_deleted: true)
+  reset_session
+  redirect_to root_path
  end
 
 private

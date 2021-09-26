@@ -1,0 +1,20 @@
+<div class="container">
+ <div class="row">
+ 	<h2 class="col-sm6 col-md-4 col-lg-3 mr-2 mt-3 text-center bg-light">検索結果</h2>
+ </div>
+ <div class="row">
+	<% if @datas.empty? %>
+	  <h2>該当する商品はありません</h2>
+	<% elsif @value == "" %>
+	  <h2>該当する商品はありません</h2>
+	<% else %>
+	  <div class="d-flex flex-wrap">
+     <% @datas.each do |data| %>
+     <div class="d-flex flex-column mr-4">
+      <%= link_to attachment_image_tag(data,:image,:fill,200,200, format: 'jpeg'),item_path(data)  %>
+      <%= link_to data.name,item_path(data) %>
+      <%= number_to_currency(data.price,:precision => 0, :format => "%u%n", :unit => "￥") %>
+     </div>
+    <% end %>
+ <% end %>  
+</div>
