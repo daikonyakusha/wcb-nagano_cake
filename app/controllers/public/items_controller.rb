@@ -3,9 +3,9 @@ class Public::ItemsController < ApplicationController
   def index
    @genres = Genre.all
    if params[:search].present?
- 	  genre = Genre.find(params[:search][:value].to_i)
-    @items = genre.items.page(params[:page]).reverse_order
-    @total_item = genre.items
+ 	  @genre = Genre.find(params[:search][:value].to_i)
+    @items = @genre.items.page(params[:page]).reverse_order
+    @total_item = @genre.items
    else
   		@items = Item.page(params[:page]).reverse_order
   		@total_item = Item.all

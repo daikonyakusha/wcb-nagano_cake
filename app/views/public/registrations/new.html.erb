@@ -12,18 +12,18 @@
     <tr>
       <th>名前</th>
       <td class="form-group form-inline">
-        <P>(姓)</P>
+        <div>(姓)</div>
         <%= f.text_field :last_name,class:"ml-2",placeholder:'令和' %>
-        <P>(名)</P>
+        <div>(名) </div>
         <%= f.text_field :first_name,class:"ml-2",placeholder:'道子' %>
       </td>
     </tr>
     <tr>
       <th>フリガナ</th>
       <td class="form-group form-inline">
-        <P>(セイ)</P>
+        <div>(セイ) </div>
         <%= f.text_field :last_name_kana,class:"ml-2",placeholder:'レイワ' %>
-        <P>(メイ)</P>
+        <div>(メイ) </div>
         <%= f.text_field :first_name_kana,class:"ml-2",placeholder:'ミチオ' %>
       </td>
     </tr>
@@ -75,10 +75,10 @@
   </div>
  </div>
  <div class="row">
- 	<div class="col-sm6 col-md-4 col-lg-3 mr-2 mt-3 text-center bg-light">
+ 	<div class="col-sm-6 col-md-4 col-lg-4 mr-2 mt-3 text-center bg-light">
  		<h2>既に登録済みの方</h2>
   </div>
-  <div class="ml-4 col-sm6 col-md-4 col-lg-3 mr-2 mt-3">
+  <div class="ml-4 col-sm6 col-md-4 col-lg-5 mr-2 mt-3">
  		<h6><%= link_to"こちら",customer_session_path %>からログインしてください。</h6>
   </div>
  </div>

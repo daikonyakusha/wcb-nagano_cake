@@ -8,7 +8,7 @@
      <tr>
       <td>
        <% @genres.each do |genre| %>
-       <%= link_to genre.name, items_path('search[value]': genre.id, 'search[how]': "match") %><br>
+       <%= link_to genre.name, items_path('search[value]': genre.id, ) %><br>
        <% end %>
       </td>
      </tr>
@@ -17,7 +17,11 @@
   <div class="col-sm-12 col-md-12 col-lg-10 m-auto">
    <div class="mt-5">
    </div>
+   <% if @genre == nil %>
    <h2>商品一覧</h2><p>全<%= @total_item.count %>件</p>
+   <% else %>
+   <h2><%= @genre.name %>一覧</h2><p>全<%= @total_item.count %>件</p>
+   <% end %>
     <div class="d-flex flex-wrap">
      <% @items.each do |item| %>
      <div class="d-flex flex-column mr-4">

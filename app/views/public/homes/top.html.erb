@@ -14,9 +14,9 @@
      </tr>
    </table>
   </div>
-  <div class="col-sm-6 col-md-7 col-lg-8">
+  <div class="col-sm-6 col-md-7 col-lg-10">
    <div class="top_main">
-    <h2 class="m-auto d-flex align-items-center">
+    <h2 class="m-auto d-flex align-items-center" style="padding-top:25px; padding-left:100px; line-height:45px;">
       ようこそ、ながのCAKEへ！<br>
       このサイトは、ケーキ販売のECサイトになります。<br>
       会員でない方も商品の閲覧はできますが、<br>
@@ -25,22 +25,22 @@
    </div>	
   </div>
  </div>	
- <div class="row mt-5 ml-5">
-  <div class="col-sm-12 col-md-10 col-lg-12 m-auto">
+ <div class="row mt-5 pt-5 m-auto" style="padding-left:150px;">
+  <div class="col-sm-12 col-md-10 col-lg-12">
    <h2>新着商品</h2>
     <div class="d-flex flex-row">
       <% @items.each do |item| %>
-       <div class="d-flex flex-column mr-2">
+       <div class="d-flex flex-column mr-3">
          <%= link_to attachment_image_tag(item, :image,:fill,200,200, format: 'jpeg'),item_path(item) %>
         <h5>
-         <%= link_to item.name, item_path(item) %><br>
+         <%= item.name %><br>
          <%= number_to_currency(item.price,:precision => 0, :format => "%u%n", :unit => "￥") %>
         </h5>
        </div>
       <% end %>
     </div>
  </div>
-<div class="mt-2 pull-right ">
+<div class="mt-2" style="padding-left:675px;">
 <%= link_to"すべての商品を見る＞",items_path %>
 </div>
 </div>

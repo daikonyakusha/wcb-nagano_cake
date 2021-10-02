@@ -17,10 +17,12 @@ Rails.application.routes.draw do
     end
     
     scope module: :public do
+      resource :customers,only:[:show,:edit,:update]
       devise_for :customers, path_names: { edit: 'fare'}
       resources :items,only:[:index,:show]
-      resource :customers,only:[:show,:edit,:update]
+      post 'orders/comfirm' => 'orders#comfirm'
       get 'orders/thanks' => 'orders#thanks'
+      delete 'cart_items/destroy_all' => 'cart_items#destroy_all'
       resources :cart_items, only:[:index,:update,:create,:destroy]
       resources :orders, only:[:index,:show,:new,:create] 
       resources :addresses, except:[:new]
@@ -29,7 +31,5 @@ Rails.application.routes.draw do
       get 'about' => 'homes#about'
       get 'customers/quit' => 'customers#quit'
       patch 'customers/leave' => 'customers#leave'
-      delete 'cart_items/destroy_all' => 'cart_items#destroy_all'
-      post 'orders/comfirm' => 'orders#comfirm'
     end
 end

@@ -1,11 +1,11 @@
 class Public::CartItemsController < ApplicationController
+ before_action :authenticate_customer!
 
 def create
  @cart_items = current_customer.cart_items
   @find_cart_item = @cart_items.find_by(item_id: params[:cart_item][:item_id])
   if @find_cart_item 
     @find_cart_item.update(amount: @find_cart_item.amount + params[:cart_item][:amount].to_i)
-    redirect_to cart_items_path
     # @find_cart_item.update(amount: すでにカートにある個数 +　追加する個数)
     #すでにかーとにある個数 = @find_cart_item.amount
     #追加する個数 = params[:cart_item][:amount] ←修正が必要
@@ -13,8 +13,8 @@ def create
     @cart_item = CartItem.new(cart_item_params)
     @cart_item.customer_id = current_customer.id
     @cart_item.save
- redirect_to cart_items_path
   end
+  redirect_to cart_items_path 
 end
 
 def index
@@ -24,6 +24,7 @@ end
 
 def destroy_all
  current_customer.cart_items.destroy_all
+ redirect_to cart_items_path 
 end
 
 def destroy

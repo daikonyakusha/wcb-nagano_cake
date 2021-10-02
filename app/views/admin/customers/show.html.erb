@@ -1,6 +1,6 @@
 <div class="container">
  <div class="row">
- 	<div class="col-sm6 col-md-4 col-lg-3 mr-2 mt-3 text-center bg-light">
+ 	<div class="col-sm-12 col-md-8 col-lg-6 mr-2 mt-3 text-center bg-light">
  		<h2><%= @customer.last_name + @customer.first_name %>さんの会員詳細</h2>
   </div>
  </div>
@@ -17,15 +17,17 @@
 	  <tr><th>会員ステータス</th>
 	      <td>
 	       <% if @customer.is_deleted == true then %>
-	        <p class="text-secondary"><stong>退会</stong></p>
+	        <div class="text-secondary"><stong>退会</stong></div>
 	       <% else %>
-	        <p class="text-success"><stong>有効</stong></p>
+	        <div class="text-success"><stong>有効</stong></div>
 	       <% end %>
 	      </td>
 	  </tr>
   </table>
-  <%= link_to"編集する", edit_admin_customer_path,class:"btn btn-success w-50" %>
-  <%= link_to"注文履歴を確認する", admin_path,class:"btn btn-primary w-75" %>
+  <div class="col-sm6 col-md-4 col-lg-3 mr-2 mt-3">
+   <%= link_to"編集する", edit_admin_customer_path,class:"btn btn-success w-45" %>
+   <%= link_to"注文履歴を確認する", admin_path('search[value]': @customer.id),class:"btn btn-primary w-75 mt-4" %>
+  </div>
  </div>
 </div>
  

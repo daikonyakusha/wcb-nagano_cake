@@ -1,4 +1,5 @@
 class Admin::CustomersController < ApplicationController
+before_action :authenticate_admin!
 	
 	def index
 	 @customers= Customer.page(params[:page]).reverse_order
@@ -11,7 +12,7 @@ class Admin::CustomersController < ApplicationController
 	end
 	
 	def show
-	 @customer= current_customer
+	 @customer= Customer.find(params[:id])
 	end
 	
 	def edit

@@ -1,12 +1,14 @@
 class Public::CustomersController < ApplicationController
-
+ before_action :authenticate_customer!
+ 
  def edit
  	@customer= current_customer
  end
  
  def update
  	@customer = current_customer
- 	@customer = Customer.update(customer_params)
+ 	@customer.id = current_customer.id 
+ 	@customer.update(customer_params)
  	redirect_to customers_path
  end
  

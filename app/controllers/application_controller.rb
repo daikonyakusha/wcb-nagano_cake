@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-	before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
 protected
 
@@ -8,20 +8,20 @@ protected
   end
  	
   def after_sign_in_path_for(resorce)
-    case resource
+    case resorce
     when Admin
-      admin_path          #pathは設定したい遷移先へのpathを指定してください
+      admin_path
     when Customer
-      root_path              #ここもpathはご自由に変更してください
+      root_path
     end
   end
  	
   def after_sign_out_path_for(resorce)
    case resorce
     when :admin
-       new_admin_session_path          #pathは設定したい遷移先へのpathを指定してください
+       new_admin_session_path
     when :customer
-      root_path              #ここもpathはご自由に変更してください
+      root_path
    end
   end
   
